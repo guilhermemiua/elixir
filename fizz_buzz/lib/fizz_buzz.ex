@@ -1,12 +1,8 @@
 defmodule FizzBuzz do
-  def evaluate_number(number) do
-    cond do
-      rem(number, 3) === 0 and rem(number, 5) === 0 -> "fizzbuzz"
-      rem(number, 3) === 0 -> "fizz"
-      rem(number, 5) === 0 -> "buzz"
-      true -> number
-    end
-  end
+  def evaluate_number(number) when rem(number, 3) === 0 and rem(number, 5) === 0, do: "fizzbuzz"
+  def evaluate_number(number) when rem(number, 3) === 0, do: "fizz"
+  def evaluate_number(number) when rem(number, 5) === 0, do: "buzz"
+  def evaluate_number(number), do: number
 
   def execute(number_list) do
     number_list
