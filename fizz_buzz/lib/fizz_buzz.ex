@@ -1,18 +1,15 @@
 defmodule FizzBuzz do
-  @moduledoc """
-  Documentation for `FizzBuzz`.
-  """
+  def evaluate_number(number) do
+    cond do
+      rem(number, 3) === 0 and rem(number, 5) === 0 -> "fizzbuzz"
+      rem(number, 3) === 0 -> "fizz"
+      rem(number, 5) === 0 -> "buzz"
+      true -> number
+    end
+  end
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> FizzBuzz.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def execute(number_list) do
+    number_list
+    |> Enum.map(&evaluate_number/1)
   end
 end
