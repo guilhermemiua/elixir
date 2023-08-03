@@ -4,8 +4,10 @@ defmodule FizzBuzz do
   defp evaluate_number(number) when rem(number, 5) === 0, do: "buzz"
   defp evaluate_number(number), do: number
 
-  def execute(number_list) do
+  def execute(number_list) when is_list(number_list) do
     number_list
     |> Enum.map(&evaluate_number/1)
   end
+
+  def execute(number_list), do: "Not a list"
 end
