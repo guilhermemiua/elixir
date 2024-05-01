@@ -8,12 +8,26 @@ defmodule Bank.Users.User do
     field :email, :string
     field :zip_code, :string
 
+    field :password, :string, virtual: true
+
     timestamps()
   end
 
+  @required_fields [:name, :password, :email, :zip_code]
+
   def changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, [:name, :password_hash, :email, :zip_code])
-    |> validate_required([:name, :password_hash, :email, :zip_code])
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
+    |> validate_length(:name, min: 3)
+    |> validate_format(:email, ~r/@/)
+    |> validate_length(:zip_code, is: 8)
+    |> add_password_hash()
   end
+
+  defp add_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    change(changeset, Argon2.add_hash(password))
+  end
+
+  defp add_password_hash(changeset), do: changeset
 end
