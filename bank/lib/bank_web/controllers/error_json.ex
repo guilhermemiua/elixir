@@ -19,6 +19,12 @@ defmodule BankWeb.ErrorJSON do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
+  def error(%{status: :not_found}) do
+    %{
+      message: "Not found"
+    }
+  end
+
   def error(%{changeset: changeset}) do
     %{errors: Ecto.Changeset.traverse_errors(changeset, &translate_errors/1)}
   end
