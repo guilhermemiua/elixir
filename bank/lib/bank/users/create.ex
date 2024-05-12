@@ -4,7 +4,7 @@ defmodule Bank.Users.Create do
 
   def call(params) do
     params
-    |> User.changeset()
+    |> User.create_changeset()
     |> Repo.insert()
   end
 end
