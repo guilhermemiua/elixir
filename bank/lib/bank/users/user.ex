@@ -37,6 +37,7 @@ defmodule Bank.Users.User do
     |> validate_length(:name, min: 3)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:zip_code, is: 8)
+    |> validate_length(:password, min: 8)
     |> unique_constraint(:email)
   end
 
