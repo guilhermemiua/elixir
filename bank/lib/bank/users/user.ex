@@ -2,6 +2,7 @@ defmodule Bank.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, except: [:__meta__, :password_hash, :password]}
   schema "users" do
     field :name, :string
     field :password_hash, :string

@@ -18,7 +18,7 @@ defmodule BankWeb.UsersController do
     with {:ok, %User{} = user} <- Users.get(id) do
       conn
       |> put_status(200)
-      |> render(:get, user: user)
+      |> render(:show, user: user)
     end
   end
 end
