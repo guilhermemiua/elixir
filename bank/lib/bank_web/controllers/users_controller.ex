@@ -29,4 +29,12 @@ defmodule BankWeb.UsersController do
       |> render(:update, user: user)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %User{} = user} <- Users.delete(id) do
+      conn
+      |> put_status(200)
+      |> render(:delete, user: user)
+    end
+  end
 end

@@ -8,7 +8,6 @@ defmodule BankWeb.Router do
   scope "/api", BankWeb do
     pipe_through :api
 
-    get "/", WelcomeController, :index
     resources "/users", UsersController, only: [:create, :update, :delete, :show]
   end
 
