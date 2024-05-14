@@ -21,7 +21,19 @@ defmodule BankWeb.ErrorJSON do
 
   def error(%{status: :not_found}) do
     %{
-      message: "Not found"
+      message: "Not Found"
+    }
+  end
+
+  def error(%{status: :bad_request}) do
+    %{
+      message: "Bad Request"
+    }
+  end
+
+  def error(%{status: :internal_server_error}) do
+    %{
+      message: "Internal Server Error"
     }
   end
 
