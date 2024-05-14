@@ -1,17 +1,39 @@
 defmodule BankWeb.UsersControllerTest do
   use BankWeb.ConnCase, async: true
 
+  import Mox
+
   alias Bank.Users
   alias Users.User
+  alias Bank.ViaCep.ClientMock, as: ViaCepClientMock
+
+  setup :verify_on_exit!
 
   describe "create" do
     test "when there are invalid params, should return an error", %{conn: conn} do
       params = %{
-        name: nil,
-        zip_code: "12",
-        email: "x.com",
-        password: "1"
+        "name" => nil,
+        "zip_code" => "12345678",
+        "email" => "x.com",
+        "password" => "1"
       }
+
+      expect(ViaCepClientMock, :call, fn _ ->
+        body = %{
+          "bairro" => "",
+          "cep" => "12345-678",
+          "complemento" => "",
+          "ddd" => "28",
+          "gia" => "",
+          "ibge" => "3202306",
+          "localidade" => "Guaçuí",
+          "logradouro" => "",
+          "siafi" => "5645",
+          "uf" => "ES"
+        }
+
+        {:ok, body}
+      end)
 
       response =
         conn
@@ -20,7 +42,6 @@ defmodule BankWeb.UsersControllerTest do
 
       expected_response = %{"errors" => %{
         "email" => ["has invalid format"],
-        "zip_code" => ["should be 8 character(s)"],
         "name" => ["can't be blank"],
         "password" => ["should be at least 8 character(s)"]
       }}
@@ -30,11 +51,28 @@ defmodule BankWeb.UsersControllerTest do
 
     test "should create user", %{conn: conn} do
       params = %{
-        name: "John",
-        zip_code: "12345678",
-        email: "x@gmail.com",
-        password: "12345678"
+        "name" => "John",
+        "zip_code" => "12345678",
+        "email" => "x@gmail.com",
+        "password" => "12345678"
       }
+
+      expect(ViaCepClientMock, :call, fn _ ->
+        body = %{
+          "bairro" => "",
+          "cep" => "12345-678",
+          "complemento" => "",
+          "ddd" => "28",
+          "gia" => "",
+          "ibge" => "3202306",
+          "localidade" => "Guaçuí",
+          "logradouro" => "",
+          "siafi" => "5645",
+          "uf" => "ES"
+        }
+
+        {:ok, body}
+      end)
 
       response =
         conn
@@ -55,11 +93,28 @@ defmodule BankWeb.UsersControllerTest do
   describe "delete" do
     test "should delete user", %{conn: conn} do
       params = %{
-        name: "John",
-        zip_code: "12345678",
-        email: "x@gmail.com",
-        password: "12345678"
+        "name" => "John",
+        "zip_code" => "12345678",
+        "email" => "x@gmail.com",
+        "password" => "12345678"
       }
+
+      expect(ViaCepClientMock, :call, fn _ ->
+        body = %{
+          "bairro" => "",
+          "cep" => "12345-678",
+          "complemento" => "",
+          "ddd" => "28",
+          "gia" => "",
+          "ibge" => "3202306",
+          "localidade" => "Guaçuí",
+          "logradouro" => "",
+          "siafi" => "5645",
+          "uf" => "ES"
+        }
+
+        {:ok, body}
+      end)
 
       {:ok, %User{id: id}} = Users.create(params)
 
