@@ -20,5 +20,6 @@ defmodule Bank.Accounts.Account do
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
     |> check_constraint(:balance, name: :balance_must_be_positive)
+    |> unique_constraint(:user_id)
   end
 end
