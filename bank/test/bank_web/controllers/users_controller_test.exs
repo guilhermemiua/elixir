@@ -40,11 +40,13 @@ defmodule BankWeb.UsersControllerTest do
         |> post(~p"/api/users", params)
         |> json_response(400)
 
-      expected_response = %{"errors" => %{
-        "email" => ["has invalid format"],
-        "name" => ["can't be blank"],
-        "password" => ["should be at least 8 character(s)"]
-      }}
+      expected_response = %{
+        "errors" => %{
+          "email" => ["has invalid format"],
+          "name" => ["can't be blank"],
+          "password" => ["should be at least 8 character(s)"]
+        }
+      }
 
       assert response == expected_response
     end
@@ -80,13 +82,13 @@ defmodule BankWeb.UsersControllerTest do
         |> json_response(201)
 
       assert %{
-        "email" => "x@gmail.com",
-        "id" => _id,
-        "inserted_at" => _inserted_at,
-        "name" => "John",
-        "updated_at" => _inserted_at,
-        "zip_code" => "12345678"
-      } = response
+               "email" => "x@gmail.com",
+               "id" => _id,
+               "inserted_at" => _inserted_at,
+               "name" => "John",
+               "updated_at" => _inserted_at,
+               "zip_code" => "12345678"
+             } = response
     end
   end
 
@@ -124,13 +126,13 @@ defmodule BankWeb.UsersControllerTest do
         |> json_response(200)
 
       assert %{
-        "email" => "x@gmail.com",
-        "id" => id,
-        "inserted_at" => _inserted_at,
-        "name" => "John",
-        "updated_at" => _inserted_at,
-        "zip_code" => "12345678"
-      } = response
+               "email" => "x@gmail.com",
+               "id" => id,
+               "inserted_at" => _inserted_at,
+               "name" => "John",
+               "updated_at" => _inserted_at,
+               "zip_code" => "12345678"
+             } = response
     end
 
     test "when user doesn't exists, should return 404", %{conn: conn} do

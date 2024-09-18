@@ -9,6 +9,8 @@ defmodule BankWeb.Router do
     pipe_through :api
 
     resources "/users", UsersController, only: [:create, :update, :delete, :show]
+
+    post "/accounts", AccountsController, :create
   end
 
   # Enable LiveDashboard in development

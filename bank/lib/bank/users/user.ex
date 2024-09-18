@@ -2,7 +2,9 @@ defmodule Bank.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, except: [:__meta__, :password_hash, :password]}
+  alias Bank.Accounts.Account
+
+  @derive {Jason.Encoder, except: [:__meta__, :password_hash, :password, :account]}
   schema "users" do
     field :name, :string
     field :password_hash, :string
@@ -10,6 +12,8 @@ defmodule Bank.Users.User do
     field :zip_code, :string
 
     field :password, :string, virtual: true
+
+    has_one :account, Account
 
     timestamps()
   end
