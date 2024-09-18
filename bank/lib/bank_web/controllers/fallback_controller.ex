@@ -22,10 +22,17 @@ defmodule BankWeb.FallbackController do
     |> render(:error, status: :internal_server_error)
   end
 
-  def call(conn, {:error, changeset}) do
+  def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(400)
     |> put_view(json: BankWeb.ErrorJSON)
     |> render(:error, changeset: changeset)
+  end
+
+  def call(conn, {:error, message}) do
+    conn
+    |> put_status(400)
+    |> put_view(json: BankWeb.ErrorJSON)
+    |> render(:error, message: message)
   end
 end

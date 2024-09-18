@@ -11,6 +11,7 @@ defmodule BankWeb.Router do
     resources "/users", UsersController, only: [:create, :update, :delete, :show]
 
     post "/accounts", AccountsController, :create
+    post "/accounts/transactions", AccountsController, :transaction
   end
 
   # Enable LiveDashboard in development
